@@ -14,6 +14,8 @@
 - ~~Delete account flow~~ — Done (DELETE API + trash button + inline confirm)
 - ~~Dual region model~~ — Done (`geography` = HQ/primary, `operatingRegions[]` = additional regions; both shown in workbench)
 - ~~Expanded industry list~~ — Done (18 categories: saas, fintech, healthcare, manufacturing, logistics, professional services, retail, education, construction, energy, real estate, conglomerate, government, media, telecommunications, hospitality, automotive, other)
+- ~~Deployed to Vercel with environment variables~~ — Done (GitHub repo: anoop-p-ksa0043/am-intelligence-analyst, Vercel URL: https://am-intelligence-analyst.vercel.app/)
+- ~~Enforced root route authentication redirect~~ — Done (app/page.tsx checks session and redirects to /login if not authenticated, else /accounts)
 
 ## P1
 - Queue-backed refresh and rescoring workers (Bull/Redis or Inngest)

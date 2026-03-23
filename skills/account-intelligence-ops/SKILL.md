@@ -67,6 +67,18 @@ npm run db:seed   # upserts 18 Zoho products + rules + demo accounts
 ```
 Safe to run multiple times (upsert pattern). Does not delete existing accounts.
 
+## Deployment to Vercel
+1. Ensure code is committed and pushed to GitHub repo: `anoop-p-ksa0043/am-intelligence-analyst`
+2. Vercel auto-deploys on push; check Vercel dashboard for build status
+3. If build fails, check logs for errors (common: missing Prisma generate — fixed by `postinstall` script)
+4. Set environment variables in Vercel project settings:
+   - `DATABASE_URL`: Neon PostgreSQL connection string
+   - `NEXTAUTH_URL`: `https://am-intelligence-analyst.vercel.app`
+   - `NEXTAUTH_SECRET`: Generated secure secret (use `openssl rand -base64 32`)
+   - `GEMINI_API_KEY`: Google AI Studio key (optional, falls back to heuristic)
+   - `ENABLE_REVAMP_UI`: `true`
+5. Test deployment: Visit `https://am-intelligence-analyst.vercel.app` — should redirect to `/login` if not authenticated
+
 ## Rules
 - Preserve reviewability and auditability.
 - New modules require explicit readiness gates.

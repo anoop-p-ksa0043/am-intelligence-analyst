@@ -51,6 +51,11 @@
 - Inference Mode displayed as "Ai" (Gemini) or "Heuristic" in Expert Context panel
 - Profile Transparency panel shows matched rules including HQ + operating regions
 
+### Deployment and Final Touches
+- Deployed to Vercel via GitHub integration (repo: anoop-p-ksa0043/am-intelligence-analyst, URL: https://am-intelligence-analyst.vercel.app/)
+- Enforced root route authentication: `app/page.tsx` now checks session and redirects to `/login` if not authenticated, else `/accounts` for revamp UI
+- Added `"postinstall": "prisma generate"` to `package.json` to ensure Prisma client generation on Vercel builds
+
 ---
 
 ## Environment Configuration
@@ -107,3 +112,9 @@ npm run dev
 ```
 
 Visit http://localhost:3000 — login with `am@internal.dev` / `demo1234`
+
+## How to Deploy
+1. Commit and push code to GitHub repository (anoop-p-ksa0043/am-intelligence-analyst)
+2. Vercel auto-deploys on push; alternatively, trigger manual deploy in Vercel dashboard
+3. Ensure environment variables are set in Vercel: DATABASE_URL, NEXTAUTH_URL (https://am-intelligence-analyst.vercel.app), NEXTAUTH_SECRET, GEMINI_API_KEY, ENABLE_REVAMP_UI=true
+4. Visit https://am-intelligence-analyst.vercel.app — redirects to /login if not authenticated
