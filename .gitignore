@@ -1,0 +1,10 @@
+.next
+node_modules
+
+# Prisma generated client
+/generated/prisma
+
+# Environment files (never commit secrets)
+.env
+.env.local
+.env.*.local

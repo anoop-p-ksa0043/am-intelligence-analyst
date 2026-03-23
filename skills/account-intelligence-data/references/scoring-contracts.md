@@ -1,0 +1,4 @@
+- Scoring consumes normalized profile data and product rules only.
+- `fitScore` measures conceptual product match.
+- `confidenceScore` measures defensibility based on evidence strength, conflict state, and freshness.
+- `confidenceBand` drives validation workflow state.

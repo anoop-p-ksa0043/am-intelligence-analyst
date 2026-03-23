@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intelligence Observer - Recommendation Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#121416",
+            "secondary-container": "#43474e",
+            "surface-container-low": "#1a1c1e",
+            "primary-fixed": "#d3e4ff",
+            "surface-bright": "#37393b",
+            "on-tertiary": "#003917",
+            "on-surface": "#e2e2e5",
+            "surface-container": "#1e2022",
+            "on-secondary-container": "#b2b5bd",
+            "surface-dim": "#121416",
+            "on-error": "#690005",
+            "error-container": "#93000a",
+            "surface-container-high": "#282a2c",
+            "surface": "#121416",
+            "inverse-on-surface": "#2f3133",
+            "tertiary": "#65de85",
+            "error": "#ffb4ab",
+            "surface-container-lowest": "#0c0e10",
+            "on-primary-container": "#e1ecff",
+            "secondary-fixed": "#dfe2eb",
+            "surface-tint": "#a2c9ff",
+            "inverse-surface": "#e2e2e5",
+            "tertiary-fixed-dim": "#65de85",
+            "primary": "#a2c9ff",
+            "tertiary-container": "#007b39",
+            "on-primary-fixed-variant": "#004881",
+            "on-tertiary-fixed": "#00210a",
+            "on-secondary-fixed": "#181c22",
+            "outline-variant": "#414751",
+            "secondary": "#c3c6cf",
+            "primary-container": "#246cb3",
+            "inverse-primary": "#0d60a6",
+            "on-secondary": "#2d3137",
+            "primary-fixed-dim": "#a2c9ff",
+            "on-tertiary-fixed-variant": "#005224",
+            "secondary-fixed-dim": "#c3c6cf",
+            "on-error-container": "#ffdad6",
+            "on-background": "#e2e2e5",
+            "on-tertiary-container": "#aaffb7",
+            "on-primary-fixed": "#001c38",
+            "tertiary-fixed": "#82fb9e",
+            "surface-variant": "#333537",
+            "outline": "#8b919c",
+            "on-surface-variant": "#c1c7d2",
+            "on-secondary-fixed-variant": "#43474e",
+            "surface-container-highest": "#333537",
+            "on-primary": "#00315b"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .headline-font { font-family: 'Space Grotesk', sans-serif; }
+    .glass-panel {
+      background: rgba(51, 53, 55, 0.8);
+      backdrop-filter: blur(20px);
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30 min-h-screen flex">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-20 flex flex-col sticky left-0 bg-[#121416] tonal-separation flex-shrink-0 z-50">
+<div class="flex flex-col items-center py-4 space-y-4 h-full">
+<div class="mb-6">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="psychology">psychology</span>
+</div>
+<nav class="flex flex-col items-center space-y-2 w-full">
+<!-- Dashboard -->
+<a class="group p-3 text-[#c1c7d2] hover:bg-[#333537] hover:text-[#e2e2e5] transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</a>
+<!-- Accounts -->
+<a class="group p-3 text-[#c1c7d2] hover:bg-[#333537] hover:text-[#e2e2e5] transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="business_center">business_center</span>
+</a>
+<!-- Intelligence (Active) -->
+<a class="group p-3 text-[#a2c9ff] bg-[#246cb3]/20 border-r-2 border-[#a2c9ff] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</a>
+<!-- Product Fit -->
+<a class="group p-3 text-[#c1c7d2] hover:bg-[#333537] hover:text-[#e2e2e5] transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="FactCheck">fact_check</span>
+</a>
+<!-- Recommendations -->
+<a class="group p-3 text-[#c1c7d2] hover:bg-[#333537] hover:text-[#e2e2e5] transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</a>
+<!-- Review Queue -->
+<a class="group p-3 text-[#c1c7d2] hover:bg-[#333537] hover:text-[#e2e2e5] transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="playlist_add_check">playlist_add_check</span>
+</a>
+<div class="flex-grow"></div>
+<!-- Admin -->
+<a class="group p-3 text-[#c1c7d2] hover:bg-[#333537] hover:text-[#e2e2e5] transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-grow flex flex-col min-w-0">
+<!-- TopNavBar Component -->
+<header class="w-full top-0 sticky z-40 bg-[#1a1c1e] no-border tonal-shift flex justify-between items-center px-6 h-16">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-[#e2e2e5] font-['Space_Grotesk']">Intelligence Observer</span>
+<div class="h-4 w-px bg-outline-variant/30"></div>
+<div class="text-on-surface-variant text-sm font-medium">Recommendation #REC-4921</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-1.5 rounded-md text-sm font-medium text-[#c1c7d2] hover:bg-[#333537] transition-all">Sync Status</button>
+<button class="px-4 py-1.5 rounded-md text-sm font-medium bg-primary-container text-on-primary-container hover:opacity-90 transition-all scale-95 active:opacity-80">Analyze Account</button>
+<div class="flex items-center gap-1 ml-2 border-l border-outline-variant/20 pl-4">
+<span class="material-symbols-outlined p-2 text-[#c1c7d2] hover:bg-[#333537] rounded-full cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined p-2 text-[#c1c7d2] hover:bg-[#333537] rounded-full cursor-pointer" data-icon="settings">settings</span>
+</div>
+</div>
+</header>
+<main class="flex-grow p-8 max-w-7xl mx-auto w-full">
+<!-- Back Action -->
+<div class="mb-8 flex items-center gap-2 group cursor-pointer w-fit">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="arrow_back">arrow_back</span>
+<span class="text-on-surface-variant text-sm group-hover:text-on-surface transition-colors">Return to Intelligence Queue</span>
+</div>
+<!-- Hero Intelligence Header -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center gap-3">
+<span class="bg-tertiary-container/30 text-tertiary px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">High Confidence Fit</span>
+<span class="text-on-surface-variant text-xs font-medium">Last updated: 4 mins ago</span>
+</div>
+<h1 class="headline-font text-5xl font-bold text-on-surface tracking-tight leading-tight">
+            Cross-Vertical Expansion: <span class="text-primary">Global Cloud Security Suite</span>
+</h1>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-2xl">
+            Strategic recommendation based on recent infrastructure shifts in the APAC region and technical debt signals detected via quarterly earnings call transcripts.
+          </p>
+</div>
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-center items-center text-center">
+<div class="text-6xl headline-font font-bold text-primary mb-2">94<span class="text-2xl">%</span></div>
+<div class="text-on-surface font-medium mb-4">Fit Score Index</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[94%]"></div>
+</div>
+<div class="mt-4 flex gap-4 text-xs text-on-surface-variant">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Signal Strength</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary"></span> Readiness</div>
+</div>
+</div>
+</section>
+<!-- Intelligence Content Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Left Column: Core Drivers & Evidence -->
+<div class="md:col-span-8 space-y-8">
+<!-- Evidence Wall -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="headline-font text-lg font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="fact_check">fact_check</span>
+                Evidence &amp; Provenance
+              </h3>
+<span class="text-xs text-on-surface-variant uppercase tracking-widest">4 Primary Signals</span>
+</div>
+<div class="p-6 space-y-6">
+<!-- Evidence Item 1 -->
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-semibold">Q3 Earnings Sentiment Shift</span>
+<span class="text-[10px] bg-secondary-container px-2 py-0.5 rounded text-on-secondary-container uppercase">NLP Analysis</span>
+</div>
+<p class="text-on-surface-variant text-sm">CEO noted "urgent need for perimeter-less architecture" 14 times during the APAC briefing. This aligns with our Zero Trust module expansion.</p>
+<div class="bg-surface-container-lowest p-3 rounded italic text-sm text-primary/80 border-l-2 border-primary">
+                    "...we are looking to consolidate our fragmented security stack in the next 180 days to mitigate rising edge risks..."
+                  </div>
+</div>
+</div>
+<!-- Evidence Item 2 -->
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="hub">hub</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-semibold">Technographic Expansion</span>
+<span class="text-[10px] bg-secondary-container px-2 py-0.5 rounded text-on-secondary-container uppercase">Web Scraping</span>
+</div>
+<p class="text-on-surface-variant text-sm">Deployment of 4 new Kubernetes clusters detected in Singapore region. Existing legacy firewall is not VPC-native.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Opportunity Hypothesis -->
+<div class="bg-primary/5 rounded-xl border border-primary/10 p-8 space-y-6">
+<h3 class="headline-font text-xl font-semibold text-primary">Opportunity Hypothesis</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+<div class="space-y-2">
+<div class="text-xs text-primary/60 uppercase font-bold tracking-tighter">The Catalyst</div>
+<p class="text-on-surface text-sm leading-relaxed">Infrastructure complexity has reached a tipping point where manual configuration is no longer viable, creating a $2M operational leak.</p>
+</div>
+<div class="space-y-2">
+<div class="text-xs text-primary/60 uppercase font-bold tracking-tighter">The Solution</div>
+<p class="text-on-surface text-sm leading-relaxed">Propose the automated Secure Mesh layer as an "Infrastructure-as-Code" value prop to eliminate manual overhead.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Drivers & Actions -->
+<div class="md:col-span-4 space-y-8">
+<!-- Score Drivers -->
+<div class="bg-surface-container-low rounded-xl p-6">
+<h3 class="headline-font text-lg font-semibold mb-6">Score Drivers</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Market Alignment</span>
+<span class="text-on-surface font-medium">+12.4%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Budget Signal</span>
+<span class="text-on-surface font-medium">+8.2%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[60%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Risk Mitigation</span>
+<span class="text-on-surface font-medium">-2.1%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-error h-full w-[20%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Matched Products -->
+<div class="bg-surface-container-low rounded-xl p-6">
+<h3 class="headline-font text-lg font-semibold mb-4">Matched Products</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-high hover:bg-surface-bright transition-colors cursor-pointer">
+<div class="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">CS</div>
+<div class="flex-grow">
+<div class="text-sm font-medium">CloudShield Enterprise</div>
+<div class="text-[10px] text-on-surface-variant">Core Security Layer</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="open_in_new">open_in_new</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-high hover:bg-surface-bright transition-colors cursor-pointer">
+<div class="w-8 h-8 rounded bg-tertiary/20 flex items-center justify-center text-tertiary font-bold text-xs">ZM</div>
+<div class="flex-grow">
+<div class="text-sm font-medium">ZeroMesh Edge</div>
+<div class="text-[10px] text-on-surface-variant">Performance Add-on</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="open_in_new">open_in_new</span>
+</div>
+</div>
+</div>
+<!-- Command Actions -->
+<div class="space-y-3">
+<button class="w-full py-4 bg-primary text-on-primary font-bold headline-font rounded-lg shadow-xl shadow-primary/10 hover:brightness-110 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+              Move to Action Center
+            </button>
+<button class="w-full py-4 border border-outline-variant text-on-surface font-medium rounded-lg hover:bg-surface-container-high transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+              Dismiss Signal
+            </button>
+</div>
+</div>
+</div>
+<!-- Action History Timeline -->
+<section class="mt-12 pt-12 border-t border-outline-variant/10">
+<h3 class="headline-font text-2xl font-semibold mb-8">Intelligence Provenance Timeline</h3>
+<div class="space-y-8 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-highest">
+<div class="relative pl-10">
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-primary-container flex items-center justify-center border-4 border-background">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Recommendation Generated</div>
+<div class="text-xs text-on-surface-variant">Oct 24, 2023 • 09:12 AM via Neural-6 Engine</div>
+</div>
+</div>
+<div class="relative pl-10">
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center border-4 border-background">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Data Refresh: Earnings Call Parser</div>
+<div class="text-xs text-on-surface-variant">Oct 24, 2023 • 08:45 AM • Freshness: 100%</div>
+<p class="text-xs mt-2 text-on-surface-variant/70 italic">Identified strategic intent from APAC transcript (Sentiment: 0.84 High Urgency).</p>
+</div>
+</div>
+<div class="relative pl-10">
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center border-4 border-background">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Signal Initialized</div>
+<div class="text-xs text-on-surface-variant">Oct 22, 2023 • 14:02 PM • Source: CRM Sync</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Explainability Drawer (Simulated Glass State) -->
+<div class="fixed top-0 right-0 w-[400px] h-full glass-panel z-50 border-l border-white/5 translate-x-full lg:translate-x-0 hidden lg:block shadow-2xl">
+<div class="p-8 h-full flex flex-col">
+<div class="flex justify-between items-center mb-10">
+<h2 class="headline-font text-xl font-bold">Observer Insight</h2>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer" data-icon="close">close</span>
+</div>
+<div class="flex-grow space-y-10 overflow-y-auto pr-2">
+<div class="space-y-4">
+<div class="text-xs uppercase tracking-widest text-primary font-bold">Why it fits</div>
+<p class="text-sm leading-relaxed text-on-surface-variant">
+            This account's velocity of cloud spending has increased by <span class="text-on-surface font-semibold">42% YoY</span>, yet their security posture remains reactive. Our model predicts a <span class="text-on-surface font-semibold">88% probability</span> of a compliance failure in the next two quarters without the ZeroMesh integration.
+          </p>
+</div>
+<div class="space-y-4">
+<div class="text-xs uppercase tracking-widest text-tertiary font-bold">Counter-Signals</div>
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-error text-sm" data-icon="warning">warning</span>
+              Recent leadership turnover in IT may delay procurement cycles.
+            </li>
+<li class="flex gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-error text-sm" data-icon="warning">warning</span>
+              Active contract with legacy provider expires in 14 months.
+            </li>
+</ul>
+</div>
+<div class="bg-surface-container-highest/40 rounded-xl p-6 border border-white/5">
+<div class="text-sm font-bold mb-2">Simulation Result</div>
+<p class="text-xs text-on-surface-variant mb-4">Estimated ROI if implemented by EOY:</p>
+<div class="text-3xl headline-font font-bold text-tertiary">$1.4M<span class="text-xs text-on-surface-variant font-normal"> / Year</span></div>
+</div>
+</div>
+<div class="pt-6 border-t border-white/5">
+<button class="w-full py-3 bg-white/5 hover:bg-white/10 text-on-surface text-sm font-medium rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+          Export Rationale to PDF
+        </button>
+</div>
+</div>
+</div>
+</body></html>

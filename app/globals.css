@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base reset ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: #121416;
+  color: #e2e2e5;
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* ─── Typography utilities ────────────────────────────────────────────────── */
+.font-headline {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.eyebrow {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c1c7d2;
+}
+
+/* ─── Glassmorphism ───────────────────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(51, 53, 55, 0.80);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Surface layers ──────────────────────────────────────────────────────── */
+.surface-0  { background-color: #121416; }
+.surface-1  { background-color: #1a1c1e; }
+.surface-2  { background-color: #282a2c; }
+.surface-3  { background-color: #333537; }
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.10); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.18); }
+
+/* ─── Material Symbols sizing ─────────────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  vertical-align: middle;
+  user-select: none;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* ─── Input base style ────────────────────────────────────────────────────── */
+.input-base {
+  background: #1a1c1e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  color: #e2e2e5;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  transition: border-color 0.15s ease;
+  outline: none;
+}
+
+.input-base:focus {
+  border-color: rgba(162, 201, 255, 0.40);
+  box-shadow: 0 0 0 3px rgba(162, 201, 255, 0.08);
+}
+
+.input-base::placeholder {
+  color: rgba(193, 199, 210, 0.40);
+}
+
+/* ─── Animations ──────────────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-up   { animation: fade-up 0.3s ease forwards; }
+.animate-slide-in  { animation: slide-in 0.25s ease forwards; }
+
+/* ─── Confidence bar ──────────────────────────────────────────────────────── */
+.confidence-bar {
+  height: 6px;
+  border-radius: 9999px;
+  background: #333537;
+  overflow: hidden;
+}
+
+.confidence-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}

@@ -1,0 +1,306 @@
+// Prisma schema — Account Intelligence Platform
+// Run: npx prisma db push && npx prisma db seed
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum AccountResolutionStatus {
+  existing
+  new
+  review_required
+}
+
+enum ConfidenceBand {
+  high
+  medium
+  low
+}
+
+enum SourceClass {
+  public_website
+  public_newsroom
+  careers
+  registry
+  other_public
+}
+
+enum SourceQuality {
+  high
+  medium
+  low
+}
+
+enum ExtractionStatus {
+  pending
+  success
+  failed
+}
+
+enum RecommendationClassification {
+  anchor
+  adjacent
+  ecosystem_enabler
+}
+
+enum RecommendationStatus {
+  approved
+  validate_in_discovery
+  review_required
+}
+
+enum FreshnessState {
+  fresh
+  aging
+  stale
+}
+
+enum ConflictState {
+  none
+  minor
+  major
+}
+
+enum RefreshStatus {
+  pending
+  running
+  completed
+  failed
+  stale
+}
+
+enum RefreshJobType {
+  scheduled
+  manual
+  source_update
+}
+
+enum ReviewDecision {
+  accepted
+  rejected
+  needs_follow_up
+}
+
+enum AliasType {
+  domain
+  crm_reference
+  alias
+}
+
+enum InferenceMode {
+  seeded
+  heuristic
+  manual_override
+  ai
+}
+
+// ─── Account ──────────────────────────────────────────────────────────────────
+
+model Account {
+  id              String                  @id @default(cuid())
+  canonicalName   String
+  primaryDomain   String                  @unique
+  aliases         String[]
+  region          String?
+  industry        String?
+  sizeBand        String?
+  status          AccountResolutionStatus @default(new)
+  confidenceStatus ConfidenceBand         @default(low)
+  lastRefreshedAt DateTime?
+
+  // Relations
+  aliasIdentifiers AliasIdentifier[]
+  sourceRecords    SourceRecord[]
+  evidenceRecords  EvidenceRecord[]
+  normalizedProfile NormalizedProfile?
+  recommendations  Recommendation[]
+  refreshJobs      RefreshJob[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([industry])
+}
+
+// ─── AliasIdentifier ──────────────────────────────────────────────────────────
+
+model AliasIdentifier {
+  id              String    @id @default(cuid())
+  accountId       String
+  type            AliasType
+  value           String
+  source          String
+  matchConfidence Float
+  active          Boolean   @default(true)
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([value])
+}
+
+// ─── SourceRecord ─────────────────────────────────────────────────────────────
+
+model SourceRecord {
+  id               String           @id @default(cuid())
+  accountId        String
+  sourceClass      SourceClass
+  sourceUrl        String
+  fetchedAt        DateTime
+  quality          SourceQuality
+  extractionStatus ExtractionStatus @default(pending)
+
+  account         Account          @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  evidenceRecords EvidenceRecord[]
+
+  @@index([accountId])
+}
+
+// ─── EvidenceRecord ───────────────────────────────────────────────────────────
+
+model EvidenceRecord {
+  id             String   @id @default(cuid())
+  accountId      String
+  sourceRecordId String
+  fieldName      String
+  fieldValue     String
+  confidence     Float
+  conflictFlag   Boolean  @default(false)
+  extractedAt    DateTime
+
+  account      Account      @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  sourceRecord SourceRecord @relation(fields: [sourceRecordId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([sourceRecordId])
+}
+
+// ─── NormalizedProfile ────────────────────────────────────────────────────────
+
+model NormalizedProfile {
+  id                String        @id @default(cuid())
+  accountId         String        @unique
+  industry          String?
+  subIndustry       String?
+  businessFunctions String[]
+  geography         String?    // HQ / primary region
+  operatingRegions  String[]   // additional regions where the company operates
+  maturity          String?
+  complexity        String?
+  growthSignals     String[]
+  profileConfidence Float         @default(0)
+  conflictSummary   String[]
+
+  // Inference metadata
+  inferenceMode    InferenceMode  @default(seeded)
+  inferenceSummary String?
+  matchedRules     String[]
+  limitations      String[]
+  lastEditedAt     DateTime?
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Product ──────────────────────────────────────────────────────────────────
+
+model Product {
+  id               String                       @id
+  name             String
+  family           String
+  classification   RecommendationClassification
+  primaryFunctions String[]
+  industries       String[]
+  buyerPersonas    String[]
+  complexity       String
+  deprecatedAt     DateTime?
+
+  rules           ProductRule[]
+  recommendations Recommendation[]
+}
+
+// ─── ProductRule ──────────────────────────────────────────────────────────────
+
+model ProductRule {
+  id            String   @id
+  productId     String
+  version       String
+  effectiveFrom DateTime
+  owner         String
+  weightings    Json     // { industry, businessFunction, scale, complexity, triggerSignal, ecosystem, evidenceConfidence }
+  conditions    Json     // { industries, functions, sizeBands, complexities, triggers, dependencyFamilies }
+  dependencies  String[]
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+// ─── Recommendation ───────────────────────────────────────────────────────────
+
+model Recommendation {
+  id              String                       @id @default(cuid())
+  accountId       String
+  productId       String
+  classification  RecommendationClassification
+  fitScore        Float
+  confidenceScore Float
+  rationale       String
+  evidenceRefs    String[]
+  nextBestAction  String
+  status          RecommendationStatus         @default(review_required)
+  confidenceBand  ConfidenceBand               @default(low)
+  freshnessState  FreshnessState               @default(fresh)
+  conflictState   ConflictState                @default(none)
+  createdAt       DateTime                     @default(now())
+
+  account Account              @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  product Product              @relation(fields: [productId], references: [id])
+  reviews RecommendationReview[]
+
+  @@index([accountId])
+  @@index([productId])
+  @@index([status])
+}
+
+// ─── RecommendationReview ─────────────────────────────────────────────────────
+
+model RecommendationReview {
+  id               String         @id @default(cuid())
+  recommendationId String
+  reviewer         String
+  decision         ReviewDecision
+  notes            String?
+  reviewedAt       DateTime       @default(now())
+
+  recommendation Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+
+  @@index([recommendationId])
+}
+
+// ─── RefreshJob ───────────────────────────────────────────────────────────────
+
+model RefreshJob {
+  id           String         @id @default(cuid())
+  accountId    String
+  jobType      RefreshJobType
+  status       RefreshStatus  @default(pending)
+  sourceScope  SourceClass[]
+  startedAt    DateTime?
+  completedAt  DateTime?
+  errorMessage String?
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([status])
+}

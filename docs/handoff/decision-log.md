@@ -1,0 +1,26 @@
+# Decision Log
+
+- 2026-03-22: Chose a custom Next.js workbench over a Zoho Creator-first build.
+- 2026-03-22: Implemented a seeded vertical slice first to keep the product runnable before persistence and workers land.
+- 2026-03-22: Kept fit and confidence separate in both domain types and UI.
+- 2026-03-22: Encoded project continuity as local skills plus handoff docs.
+- 2026-03-22: Marked heuristic profile inference as provisional and added manual correction controls.
+- 2026-03-22: Treat approved anchor recommendations as the selected primary motion for the account.
+- 2026-03-22: Initially rolled out the accounts-centered revamp behind a feature flag, with Accounts Board as the default revamp entry point and legacy preserved at `/`.
+- 2026-03-22: Flipped `/` to the new Accounts Board and moved legacy continuity to `/legacy`.
+- 2026-03-23: Chose **NextAuth.js v5 (beta)** over Clerk/Auth0. Rationale: zero external dependency, credentials provider fits internal-only user roster, role stored in JWT avoids DB lookup on every request.
+- 2026-03-23: Chose **Prisma v7 + @prisma/adapter-pg** over Drizzle/Kysely. Rationale: full type safety from schema, mature migration tooling, team familiarity. Prisma v7 requires adapter-pg pattern (no `url` in schema.prisma; uses `prisma.config.ts`).
+- 2026-03-23: **Hard-coded user roster in auth.ts** (5 dev users, password: demo1234). Rationale: internal tooling, no user self-registration needed. Future: replace with DB-backed lookup once PostgreSQL is live.
+- 2026-03-23: **Role-gating implemented client-side** via `useCurrentUser` + `hasRole`. Rationale: UI convenience; API routes also guard via session checks. Server-side middleware protects routes.
+- 2026-03-23: **Legacy route retired** — `/legacy/page.tsx` now calls `notFound()`. External bookmarks get a 404 rather than a redirect to avoid confusion. `components/legacy-workbench-page.tsx` kept but marked `@deprecated`.
+- 2026-03-23: **Stitch design system applied fully** — all design token decisions (colors, fonts, spacing) match `stitch design/` HTML references verbatim. Material Symbols replaces all custom SVG icons. Space Grotesk for headlines, Inter for body.
+- 2026-03-23: **Zoho product catalog as single source of truth** (`lib/zoho-products.ts`). Rationale: keeps product metadata out of the DB schema, imported by seed and future admin tooling. 18 products with classification, functions, industries, buyer personas, and scoring rules.
+- 2026-03-23: **AI enrichment with keyword fallback** (`lib/ai-enrichment.ts`). Used `claude-haiku-4-5` for speed/cost. If `ANTHROPIC_API_KEY` is absent or website fetch fails, silently falls back to keyword heuristic. Keeps intake flow non-blocking.
+- 2026-03-23: **Delete account is a hard DELETE** (Prisma cascade). Rationale: no archival or soft-delete requirement stated. Optimistic UI removes the row immediately and fires DELETE in background — no toast needed since row disappears.
+- 2026-03-23: **Sidebar trimmed to 2 nav items** (Accounts Board + Review Queue). Workbench and Recommendations accessed via account row actions. Rationale: workbench is an account-scoped drill-down, not a top-level destination.
+- 2026-03-23: **Hover-expand sidebar** implemented purely with CSS Tailwind group variants (`w-20 hover:w-56`, `group/sidebar`). No JavaScript state needed.
+- 2026-03-23: **Switched AI enrichment from Anthropic Claude to Google Gemini** (`@google/generative-ai`). Rationale: user provided Gemini API key; Gemini has per-model independent free-tier quota buckets, enabling a 3-model fallback chain (`gemini-2.0-flash-lite` → `gemini-2.0-flash` → `gemini-2.5-flash`) for resilience. `GEMINI_API_KEY` replaces `ANTHROPIC_API_KEY` in env.
+- 2026-03-23: **Dual region model** — `NormalizedProfile` stores two separate region fields: `geography` (HQ/primary region, single value) and `operatingRegions` (additional operating regions, array). Rationale: multinational accounts need HQ identity separated from operational footprint. Workbench shows both as "HQ Region" and "Global Ops" metadata cards. Stored as `String?` + `String[]` in Prisma.
+- 2026-03-23: **Expanded industry list from 9 to 18 categories** — added: construction, energy, real estate, conglomerate, government, media, telecommunications, hospitality, automotive. Rationale: seed data and Gemini classification were silently rounding to a catch-all; wider taxonomy gives more accurate industry matching in scoring rules.
+- 2026-03-23: **`InferenceMode` enum extended with `ai` value** — Prisma enum now: `seeded | heuristic | manual_override | ai`. Rationale: Gemini-enriched profiles need a distinct mode separate from keyword `heuristic`. Required `npx prisma db push + generate` and `.next` cache clear after change.
+- 2026-03-23: **Route protection file renamed to `proxy.ts`** — Next.js 16.2.1 reserves `middleware.ts` for its own edge middleware; custom route guard renamed to `proxy.ts` per Next.js 16 convention.

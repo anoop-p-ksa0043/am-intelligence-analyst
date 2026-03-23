@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intelligence Observer - Account Intelligence Workbench</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121416;
+            color: #e2e2e5;
+        }
+        .headline-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        /* Custom scrollbar for a "pro" feel */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121416;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333537;
+            border-radius: 10px;
+        }
+        /* Glassmorphism effect */
+        .glass-panel {
+            background: rgba(51, 53, 55, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#121416",
+                        "secondary-container": "#43474e",
+                        "surface-container-low": "#1a1c1e",
+                        "primary-fixed": "#d3e4ff",
+                        "surface-bright": "#37393b",
+                        "on-tertiary": "#003917",
+                        "on-surface": "#e2e2e5",
+                        "surface-container": "#1e2022",
+                        "on-secondary-container": "#b2b5bd",
+                        "surface-dim": "#121416",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#282a2c",
+                        "surface": "#121416",
+                        "inverse-on-surface": "#2f3133",
+                        "tertiary": "#65de85",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0c0e10",
+                        "on-primary-container": "#e1ecff",
+                        "secondary-fixed": "#dfe2eb",
+                        "surface-tint": "#a2c9ff",
+                        "inverse-surface": "#e2e2e5",
+                        "tertiary-fixed-dim": "#65de85",
+                        "primary": "#a2c9ff",
+                        "tertiary-container": "#007b39",
+                        "on-primary-fixed-variant": "#004881",
+                        "on-tertiary-fixed": "#00210a",
+                        "on-secondary-fixed": "#181c22",
+                        "outline-variant": "#414751",
+                        "secondary": "#c3c6cf",
+                        "primary-container": "#246cb3",
+                        "inverse-primary": "#0d60a6",
+                        "on-secondary": "#2d3137",
+                        "primary-fixed-dim": "#a2c9ff",
+                        "on-tertiary-fixed-variant": "#005224",
+                        "secondary-fixed-dim": "#c3c6cf",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e2e2e5",
+                        "on-tertiary-container": "#aaffb7",
+                        "on-primary-fixed": "#001c38",
+                        "tertiary-fixed": "#82fb9e",
+                        "surface-variant": "#333537",
+                        "outline": "#8b919c",
+                        "on-surface-variant": "#c1c7d2",
+                        "on-secondary-fixed-variant": "#43474e",
+                        "surface-container-highest": "#333537",
+                        "on-primary": "#00315b"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-20 flex flex-col sticky left-0 bg-[#121416] bg-[#1a1c1e] tonal-separation transition-all duration-300 ease-in-out py-4 space-y-4 items-center">
+<div class="mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+</div>
+<nav class="flex flex-col space-y-4 w-full items-center">
+<!-- Dashboard -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</button>
+<!-- Accounts (ACTIVE) -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#a2c9ff] bg-[#246cb3]/20 border-r-2 border-[#a2c9ff] transition-all">
+<span class="material-symbols-outlined" data-icon="business_center">business_center</span>
+</button>
+<!-- Intelligence -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</button>
+<!-- Product Fit -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="FactCheck">fact_check</span>
+</button>
+<!-- Recommendations -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<div class="h-px w-8 bg-outline-variant opacity-20 my-2"></div>
+<!-- Review Queue -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="playlist_add_check">playlist_add_check</span>
+</button>
+<!-- Product KB -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+</button>
+<!-- Rules -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</button>
+<!-- Admin -->
+<button class="w-12 h-12 flex items-center justify-center rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+</button>
+</nav>
+</aside>
+<div class="flex-1 flex flex-col">
+<!-- TopNavBar (Authority: JSON) -->
+<header class="w-full top-0 sticky z-40 bg-[#1a1c1e] no-border tonal-shift flex justify-between items-center px-6 h-16">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-[#e2e2e5] font-['Space_Grotesk']">Intelligence Observer</span>
+<div class="h-6 w-px bg-outline-variant opacity-30"></div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm font-medium">
+<span class="material-symbols-outlined text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64 placeholder-on-surface-variant/50" placeholder="Search account intelligence..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-[#c1c7d2] hover:bg-[#333537] transition-colors duration-200">
+<span class="material-symbols-outlined text-lg">sync</span>
+                    Sync Status
+                </button>
+<button class="flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-bold bg-primary-container text-on-primary-container scale-95 active:opacity-80 transition-all">
+                    Analyze Account
+                </button>
+<div class="flex items-center gap-1 ml-2">
+<button class="p-2 rounded-full text-[#c1c7d2] hover:bg-[#333537] transition-all"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 rounded-full text-[#c1c7d2] hover:bg-[#333537] transition-all"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant ml-2" data-alt="User profile avatar circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6MajiQYDQsuvm_39jy_hA2LLw_yVF2aMnG2lDXQFlvFnNxKaZJV1cpsnB9tKYIMdiLXHUJLcCU-iKeDQCwt43QQPwXvCltF4Cjsg9tV0Be_4hkHkmAHvNI3FeNKm-m6HoOjfqveVO2_EgXqpdj52L5rmzz3If2QGBbfw6E_swUX3bC6pyGxcj6cNWsJrKdfsCb4cuu4Mft4F9NJRedJwcILPrBkgI77qA1_mjU3RmC3ZkyKL6tATqOuu7dctA1Gv-OhT257YLI4c"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-8 grid grid-cols-12 gap-8 overflow-y-auto">
+<!-- Left Column: Intelligence Hub -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Account Summary Card -->
+<section class="bg-surface-container-low rounded-xl p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-6 flex flex-col items-end">
+<div class="text-[0.65rem] uppercase tracking-widest text-on-surface-variant mb-1">Intelligence Confidence</div>
+<div class="flex items-center gap-2">
+<span class="headline-font text-4xl font-bold text-tertiary">94%</span>
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-primary">domain</span>
+</div>
+<div>
+<h1 class="headline-font text-3xl font-bold text-on-surface tracking-tight">Stellar Dynamics Corp</h1>
+<div class="flex items-center gap-3 mt-1 text-on-surface-variant">
+<span class="text-sm">Enterprise Software &amp; Aerospace</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-sm">10k-50k employees</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-sm">Last Synced: 14m ago</span>
+</div>
+</div>
+</div>
+<!-- Quick Metadata Grid -->
+<div class="grid grid-cols-4 gap-4 mt-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<div class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Annual Revenue</div>
+<div class="text-lg font-semibold text-on-surface">$2.4B USD</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<div class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">HQ Region</div>
+<div class="text-lg font-semibold text-on-surface">North America</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<div class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Decision Cycle</div>
+<div class="text-lg font-semibold text-on-surface">Accelerated</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<div class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Strategic Fit</div>
+<div class="text-lg font-semibold text-on-surface">Priority A</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Intelligence Signals & Profile (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Intelligence Signals Panel -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="headline-font text-xl font-bold text-on-surface">Intelligence Signals</h2>
+<span class="text-xs bg-primary-container/20 text-primary px-2 py-0.5 rounded">Real-time</span>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary">trending_up</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Aggressive Growth Signals</p>
+<p class="text-xs text-on-surface-variant mt-1">24% increase in specialized engineering headcount over last 6 months.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">person_add</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">CXO Hiring Pulse</p>
+<p class="text-xs text-on-surface-variant mt-1">New CTO appointed with background in AI-driven observability frameworks.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-error">hub</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Complexity Indicator</p>
+<p class="text-xs text-on-surface-variant mt-1">Multi-cloud migration detected; potential integration friction points identified.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Normalized Profile Panel -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="headline-font text-xl font-bold text-on-surface">Business Anatomy</h2>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-xs text-on-surface-variant font-medium">Cloud Maturity</span>
+<span class="text-xs text-on-surface font-bold">Advanced</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-3 mt-2">
+<div class="flex justify-between items-center">
+<span class="text-xs text-on-surface-variant font-medium">Security Posture</span>
+<span class="text-xs text-on-surface font-bold">High Compliance</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[92%]"></div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/10">
+<div class="text-[10px] uppercase text-on-surface-variant font-bold mb-3">Core Functions</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[11px] px-2 py-1 rounded bg-surface-container-highest border border-outline-variant/20">Aerospace Eng</span>
+<span class="text-[11px] px-2 py-1 rounded bg-surface-container-highest border border-outline-variant/20">Data Intelligence</span>
+<span class="text-[11px] px-2 py-1 rounded bg-surface-container-highest border border-outline-variant/20">GovSec Ops</span>
+<span class="text-[11px] px-2 py-1 rounded bg-surface-container-highest border border-outline-variant/20">Supply Logistics</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Recommendation Panel -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="headline-font text-2xl font-bold text-on-surface">Intelligence-Driven Recommendations</h2>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-xs text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-primary"></span> Anchor</span>
+<span class="flex items-center gap-1 text-xs text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-tertiary"></span> Enabler</span>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<!-- Card 1: Anchor -->
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold tracking-widest uppercase bg-primary-container text-on-primary-container px-2 py-0.5 rounded">Anchor Recommendation</span>
+<span class="text-xs text-on-surface-variant">Conf: 98%</span>
+</div>
+<h3 class="text-lg font-bold text-on-surface mt-2">Hybrid Multi-Cloud Observability Suite</h3>
+<p class="text-sm text-on-surface-variant mt-2 max-w-2xl">Based on recent architectural shifts and new CTO mandate for unified data plane across AWS and On-Prem infrastructure.</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold headline-font text-primary">Fit: 9.4</div>
+<button class="text-xs text-primary font-semibold mt-1 flex items-center gap-1 justify-end">View Evidence <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</div>
+</div>
+<!-- Card 2: Enabler -->
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-tertiary">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold tracking-widest uppercase bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded">Enabler</span>
+<span class="text-xs text-on-surface-variant">Conf: 82%</span>
+</div>
+<h3 class="text-lg font-bold text-on-surface mt-2">Zero-Trust Identity Bridge</h3>
+<p class="text-sm text-on-surface-variant mt-2 max-w-2xl">Unlocks federal contract compliance requirements. Direct correlation with "GovSec Ops" profile signal.</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold headline-font text-tertiary">Fit: 8.8</div>
+<button class="text-xs text-primary font-semibold mt-1 flex items-center gap-1 justify-end">View Evidence <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</div>
+</div>
+<!-- Card 3: Adjacent -->
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-secondary">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold tracking-widest uppercase bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">Adjacent</span>
+<span class="text-xs text-on-surface-variant">Conf: 65%</span>
+</div>
+<h3 class="text-lg font-bold text-on-surface mt-2">Automated Cost Optimization Engine</h3>
+<p class="text-sm text-on-surface-variant mt-2 max-w-2xl">Predicted value increase as cloud spend reaches critical mass during Q3 scaling phase.</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold headline-font text-on-surface">Fit: 7.2</div>
+<button class="text-xs text-primary font-semibold mt-1 flex items-center gap-1 justify-end">View Evidence <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Action Center & Explainability -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Action Center -->
+<section class="bg-surface-container-high rounded-xl p-6">
+<h2 class="headline-font text-xl font-bold text-on-surface mb-6">Action Center</h2>
+<div class="grid grid-cols-1 gap-3">
+<button class="w-full flex items-center justify-between p-4 rounded-lg bg-primary text-on-primary font-bold hover:brightness-110 transition-all">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined">task_alt</span> Validate Intelligence</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-lg bg-surface-container-highest text-on-surface font-medium border border-outline-variant/20 hover:bg-surface-bright transition-all">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined">explore</span> Initiate Discovery</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-lg bg-surface-container-highest text-on-surface font-medium border border-outline-variant/20 hover:bg-surface-bright transition-all">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined">support_agent</span> Request Analyst Review</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-lg bg-surface-container-highest text-on-surface font-medium border border-outline-variant/20 hover:bg-surface-bright transition-all">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined">person_add_alt</span> Assign Follow-up</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Explainability Drawer (Pinned State) -->
+<section class="glass-panel rounded-xl p-6 border border-outline-variant/10">
+<div class="flex items-center justify-between mb-6">
+<h2 class="headline-font text-lg font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span>
+                            Explainability
+                        </h2>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Inference Engine v2.4</span>
+</div>
+<div class="space-y-6">
+<div>
+<div class="text-[11px] font-bold text-primary mb-3 uppercase tracking-tighter">Matched Attributes</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 p-2 bg-surface-container-lowest rounded text-xs">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+<span>Public Cloud Expansion Keynotes</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-surface-container-lowest rounded text-xs">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+<span>LinkedIn Hiring: SRE &amp; DevOps (↑30%)</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-surface-container-lowest rounded text-xs">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+<span>Historical Purchasing: AWS PrivateLink</span>
+</div>
+</div>
+</div>
+<div>
+<div class="text-[11px] font-bold text-primary mb-3 uppercase tracking-tighter">Evidence Rationale</div>
+<p class="text-xs leading-relaxed text-on-surface-variant italic">
+                                "The convergence of rapid SRE hiring and the CTO's documented priority on 'Digital Sovereignty' (SEC Filing p.42) creates a high-probability demand for an abstraction layer that handles multi-cloud observability without vendor lock-in."
+                            </p>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<div class="text-[11px] font-bold text-on-surface mb-2">Applied Rules</div>
+<div class="flex flex-wrap gap-1">
+<span class="bg-surface-container-highest text-[10px] px-1.5 py-0.5 rounded">R-74: Enterprise Momentum</span>
+<span class="bg-surface-container-highest text-[10px] px-1.5 py-0.5 rounded">R-12: Architectural Pivot</span>
+<span class="bg-surface-container-highest text-[10px] px-1.5 py-0.5 rounded">R-99: Exec Intent</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Map / Location Insight -->
+<div class="bg-surface-container-low rounded-xl h-48 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10"></div>
+<img alt="World map data" class="w-full h-full object-cover opacity-40 grayscale contrast-125" data-alt="Dark abstract world map showing data connections" data-location="Global Headquarters" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlobv3Wt7m9kyEi7n-pw--uLqFbOOetcQn3lG0SeIPdMLPRVF7vPzLLdb0FJP7cAmiDoYSg-vHA4CM-JN_8WVqjtAdzb5t79JydOw67q2MwzPPW37q3sfPgHoBA7bAUfEh0CqBQMIQeTJRYFpOunmTlbW7DAtu3VfSugcNC-548mnAgZlKbFifil8tNYR097IXR070dGrY2tE1EiYLXH0VxyleSjF9qACjfVPtLeoVHxvpRwhc3pVM43ew6rWVol5gbrVJXDpK4yA"/>
+<div class="absolute bottom-4 left-4 z-20">
+<div class="text-xs font-bold text-on-surface">Primary Hub: San Francisco, CA</div>
+<div class="text-[10px] text-on-surface-variant">12 Satellite locations active</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

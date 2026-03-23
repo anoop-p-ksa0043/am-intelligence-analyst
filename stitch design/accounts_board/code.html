@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Accounts Board - Intelligence Observer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#121416",
+                        "secondary-container": "#43474e",
+                        "surface-container-low": "#1a1c1e",
+                        "primary-fixed": "#d3e4ff",
+                        "surface-bright": "#37393b",
+                        "on-tertiary": "#003917",
+                        "on-surface": "#e2e2e5",
+                        "surface-container": "#1e2022",
+                        "on-secondary-container": "#b2b5bd",
+                        "surface-dim": "#121416",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#282a2c",
+                        "surface": "#121416",
+                        "inverse-on-surface": "#2f3133",
+                        "tertiary": "#65de85",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0c0e10",
+                        "on-primary-container": "#e1ecff",
+                        "secondary-fixed": "#dfe2eb",
+                        "surface-tint": "#a2c9ff",
+                        "inverse-surface": "#e2e2e5",
+                        "tertiary-fixed-dim": "#65de85",
+                        "primary": "#a2c9ff",
+                        "tertiary-container": "#007b39",
+                        "on-primary-fixed-variant": "#004881",
+                        "on-tertiary-fixed": "#00210a",
+                        "on-secondary-fixed": "#181c22",
+                        "outline-variant": "#414751",
+                        "secondary": "#c3c6cf",
+                        "primary-container": "#246cb3",
+                        "inverse-primary": "#0d60a6",
+                        "on-secondary": "#2d3137",
+                        "primary-fixed-dim": "#a2c9ff",
+                        "on-tertiary-fixed-variant": "#005224",
+                        "secondary-fixed-dim": "#c3c6cf",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e2e2e5",
+                        "on-tertiary-container": "#aaffb7",
+                        "on-primary-fixed": "#001c38",
+                        "tertiary-fixed": "#82fb9e",
+                        "surface-variant": "#333537",
+                        "outline": "#8b919c",
+                        "on-surface-variant": "#c1c7d2",
+                        "on-secondary-fixed-variant": "#43474e",
+                        "surface-container-highest": "#333537",
+                        "on-primary": "#00315b"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121416;
+            color: #e2e2e5;
+        }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel {
+            background: rgba(51, 53, 55, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Left Navigation Rail) -->
+<aside class="h-screen w-20 flex flex-col sticky left-0 bg-[#121416] bg-[#1a1c1e] tonal-separation transition-all duration-300 ease-in-out flex flex-col items-center py-4 space-y-4 z-50">
+<div class="mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+</div>
+</div>
+<nav class="flex flex-col items-center space-y-2 w-full">
+<!-- Active Tab: Accounts -->
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] mt-1 font-medium">Dashboard</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#a2c9ff] bg-[#246cb3]/20 border-r-2 border-[#a2c9ff] transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">business_center</span>
+<span class="text-[10px] mt-1 font-medium">Accounts</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-[10px] mt-1 font-medium">Intelligence</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-[10px] mt-1 font-medium">Product Fit</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-[10px] mt-1 font-medium">Recommendations</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">playlist_add_check</span>
+<span class="text-[10px] mt-1 font-medium">Review Queue</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[10px] mt-1 font-medium">Product KB</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="text-[10px] mt-1 font-medium">Rules</span>
+</a>
+<a class="group w-full flex flex-col items-center py-3 text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-[10px] mt-1 font-medium">Admin</span>
+</a>
+</nav>
+<div class="mt-auto pb-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLzqe2KAwD2BImylCuTy84PkPwDHzviXVBh7MRyVwNVqIxbgbr2KZpStMTlKKwgkHoNc2FEvs30-kNahKAHvH8hS3Mx3yfLNVw5cZJj5JUxuPvcgLHy6bVWnt2MjHN34vG9nFkHfPrlnPceEjwz8W8490q29AyaR2zq1lpZHwgRysV7oH_IZ-e1e1POeYAFHk0khD7xUTUq4vzJ5Ni-tqhAlLvNj4l_1NqiKxlTLWwoe0yutywYhWUsHdyCpohMGiGMLItwq_XGWo"/>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky bg-[#121416] bg-[#1a1c1e] no-border tonal-shift flex justify-between items-center px-6 h-16 w-full z-40">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold tracking-tight text-[#e2e2e5] font-['Space_Grotesk']">Intelligence Observer</h1>
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-md py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary/40 placeholder:text-on-surface-variant/50" placeholder="Search accounts, regions, or account managers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 text-sm font-medium text-on-secondary-container bg-secondary-container rounded-md hover:bg-[#333537] transition-colors scale-95 active:opacity-80">
+                    Sync Status
+                </button>
+<button class="px-4 py-2 text-sm font-medium text-on-primary bg-primary rounded-md hover:bg-surface-tint transition-colors scale-95 active:opacity-80">
+                    Analyze Account
+                </button>
+<div class="flex items-center gap-2 ml-2 border-l border-outline-variant/20 pl-4">
+<button class="p-2 text-on-surface-variant hover:bg-[#333537] rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-[#333537] rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-8 flex flex-col gap-8 max-w-[1600px] mx-auto w-full">
+<!-- Page Header & Stats -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+<div class="space-y-1">
+<h2 class="text-4xl font-headline font-bold text-on-surface tracking-tight">Portfolio Overview</h2>
+<p class="text-on-surface-variant font-body">Global intelligence signals across 1,248 accounts.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col min-w-[140px]">
+<span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">At Risk</span>
+<span class="text-2xl font-headline font-bold text-error">42</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col min-w-[140px]">
+<span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Healthy</span>
+<span class="text-2xl font-headline font-bold text-tertiary">1,104</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col min-w-[140px]">
+<span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Avg Confidence</span>
+<span class="text-2xl font-headline font-bold text-primary">88.4%</span>
+</div>
+</div>
+</section>
+<!-- Filtering Bar -->
+<section class="bg-surface-container-low p-2 rounded-xl flex flex-wrap items-center gap-2">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant/10">
+<span class="text-xs font-semibold text-on-surface-variant uppercase">Region:</span>
+<select class="bg-transparent border-none text-sm p-0 pr-6 focus:ring-0 text-on-surface font-medium">
+<option>All Regions</option>
+<option>North America</option>
+<option>EMEA</option>
+<option>APAC</option>
+</select>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant/10">
+<span class="text-xs font-semibold text-on-surface-variant uppercase">Industry:</span>
+<select class="bg-transparent border-none text-sm p-0 pr-6 focus:ring-0 text-on-surface font-medium">
+<option>All Industries</option>
+<option>Fintech</option>
+<option>Healthcare</option>
+<option>Retail</option>
+</select>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant/10">
+<span class="text-xs font-semibold text-on-surface-variant uppercase">Risk:</span>
+<select class="bg-transparent border-none text-sm p-0 pr-6 focus:ring-0 text-on-surface font-medium">
+<option>All Levels</option>
+<option>Critical</option>
+<option>Warning</option>
+<option>Healthy</option>
+</select>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant/10">
+<span class="text-xs font-semibold text-on-surface-variant uppercase">Motion:</span>
+<select class="bg-transparent border-none text-sm p-0 pr-6 focus:ring-0 text-on-surface font-medium">
+<option>Expansion</option>
+<option>Renewal</option>
+<option>New Biz</option>
+</select>
+</div>
+<button class="ml-auto px-4 py-1.5 flex items-center gap-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                    More Filters
+                </button>
+<div class="h-6 w-px bg-outline-variant/30 mx-2"></div>
+<button class="px-4 py-1.5 flex items-center gap-2 text-sm text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export CSV
+                </button>
+</section>
+<!-- Table Container -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 text-on-surface-variant uppercase text-[10px] font-bold tracking-widest border-b border-outline-variant/10">
+<th class="px-6 py-4">Account Name</th>
+<th class="px-6 py-4">Health</th>
+<th class="px-6 py-4">Confidence</th>
+<th class="px-6 py-4">Recommendation</th>
+<th class="px-6 py-4">Region</th>
+<th class="px-6 py-4">Account Manager</th>
+<th class="px-6 py-4">Industry</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<!-- Account Row 1 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Nexus Dynamics</span>
+<span class="text-xs text-on-surface-variant">nexus-dyn.com</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-sm font-medium">Stable</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-headline font-bold text-primary">94</span>
+<div class="flex-1 max-w-[60px] h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[94%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/30 text-tertiary-fixed text-[11px] font-bold uppercase tracking-tight">Upsell Opportunity</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">North America</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Sarah Jenkins</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Cloud Infrastructure</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Account Row 2 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Vertex Global</span>
+<span class="text-xs text-on-surface-variant">vertex-corp.io</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-sm font-medium">Churn Risk</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-headline font-bold text-error">32</span>
+<div class="flex-1 max-w-[60px] h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-error h-full w-[32%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-error-container/30 text-on-error-container text-[11px] font-bold uppercase tracking-tight">Risk Mitigation</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">EMEA</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Marko Valli</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Fintech</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Account Row 3 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Pulse Health</span>
+<span class="text-xs text-on-surface-variant">pulsehealth.med</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#F9B21D]"></div>
+<span class="text-sm font-medium">Neutral</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-headline font-bold text-on-surface">68</span>
+<div class="flex-1 max-w-[60px] h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full w-[68%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-primary-container/30 text-primary-fixed text-[11px] font-bold uppercase tracking-tight">Renewal Review</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">APAC</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Li Wei</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Healthtech</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Account Row 4 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Aether Energy</span>
+<span class="text-xs text-on-surface-variant">aether.energy</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-sm font-medium">Strong</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-headline font-bold text-primary">82</span>
+<div class="flex-1 max-w-[60px] h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-[11px] font-bold uppercase tracking-tight">Standard Motion</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">North America</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">David Chen</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Renewables</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Account Row 5 -->
+<tr class="hover:bg-surface-container-high transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold">Skyline Retail</span>
+<span class="text-xs text-on-surface-variant">skyline-retail.com</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-sm font-medium">High Alert</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-headline font-bold text-error">15</span>
+<div class="flex-1 max-w-[60px] h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-error h-full w-[15%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-error-container/30 text-on-error-container text-[11px] font-bold uppercase tracking-tight">Executive Outreach</span>
+</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">EMEA</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Sarah Jenkins</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Retail Tech</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="flex items-center justify-between px-6 py-4 bg-surface-container-high/20 border-t border-outline-variant/10">
+<span class="text-sm text-on-surface-variant">Showing <span class="text-on-surface font-semibold">1-5</span> of 1,248 accounts</span>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary text-sm font-bold">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-sm">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-sm">3</button>
+<span class="text-on-surface-variant mx-1">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-sm">250</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Bottom Insights Grid (Bento) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="md:col-span-2 bg-surface-container-low p-6 rounded-xl border border-outline-variant/5">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-headline font-bold">Intelligence Drift</h3>
+<span class="text-xs text-primary font-bold uppercase tracking-widest">Last 30 Days</span>
+</div>
+<div class="h-48 w-full flex items-end gap-2 px-2">
+<!-- Simplified Histogram -->
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[45%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-primary/40 rounded-t-sm h-[75%]"></div>
+<div class="flex-1 bg-primary/60 rounded-t-sm h-[85%]"></div>
+<div class="flex-1 bg-primary/80 rounded-t-sm h-[95%]"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[80%]"></div>
+<div class="flex-1 bg-primary/70 rounded-t-sm h-[65%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[25%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[20%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[35%]"></div>
+</div>
+<div class="mt-4 flex justify-between text-[10px] text-on-surface-variant font-bold uppercase tracking-widest px-2">
+<span>High Risk</span>
+<span>Neutral</span>
+<span>Expansion</span>
+</div>
+</div>
+<div class="bg-primary-container p-6 rounded-xl flex flex-col justify-between text-on-primary-container relative overflow-hidden">
+<div class="z-10">
+<h3 class="text-lg font-headline font-bold mb-2">Automated Analysis</h3>
+<p class="text-sm opacity-90 leading-relaxed">Observer has detected a significant positive fit signal for 12 accounts in the Retail industry.</p>
+</div>
+<button class="z-10 mt-6 w-full py-2 bg-on-primary-container text-primary-container rounded-md text-sm font-bold hover:opacity-90 transition-opacity">
+                        View Intelligence
+                    </button>
+<!-- Decorative Background element -->
+<div class="absolute -bottom-8 -right-8 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</section>
+</div>
+</main>
+<!-- Side Intelligence Panel (Glassmorphism Explainability Drawer) - Hidden by default in desktop but structural concept included -->
+<aside class="fixed right-0 top-0 h-screen w-[450px] glass-panel z-50 transform translate-x-full shadow-2xl transition-transform duration-500 hidden" id="explainability-drawer">
+<div class="p-8 h-full flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-headline font-bold">Account Signal</h2>
+<button class="p-2 hover:bg-surface-bright rounded-full transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-8 overflow-y-auto">
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-primary">analytics</span>
+</div>
+<div>
+<h3 class="text-xl font-bold">Vertex Global</h3>
+<p class="text-sm text-on-surface-variant">Churn Signal: High Confidence (92%)</p>
+</div>
+</div>
+</div>
+<div class="p-6 bg-error-container/20 rounded-xl border border-error/20">
+<h4 class="text-xs font-bold uppercase tracking-widest text-error mb-2">Primary Risk Drivers</h4>
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-error text-lg">arrow_downward</span>
+<span>Engagement score dropped by 45% in last 14 days.</span>
+</li>
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-error text-lg">group_remove</span>
+<span>Executive sponsor "Jonathan Miller" departed the organization.</span>
+</li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Recommended Action</h4>
+<div class="p-6 bg-surface-container-high rounded-xl">
+<p class="text-sm leading-relaxed mb-4 italic">"Immediate executive outreach required to the new interim CTO. Sentiment analysis of recent support tickets indicates frustration with API latency."</p>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-bold">Draft Outreach Email</button>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</body></html>

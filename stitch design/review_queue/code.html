@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Review Queue - Analyst Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#121416",
+                        "secondary-container": "#43474e",
+                        "surface-container-low": "#1a1c1e",
+                        "primary-fixed": "#d3e4ff",
+                        "surface-bright": "#37393b",
+                        "on-tertiary": "#003917",
+                        "on-surface": "#e2e2e5",
+                        "surface-container": "#1e2022",
+                        "on-secondary-container": "#b2b5bd",
+                        "surface-dim": "#121416",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#282a2c",
+                        "surface": "#121416",
+                        "inverse-on-surface": "#2f3133",
+                        "tertiary": "#65de85",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0c0e10",
+                        "on-primary-container": "#e1ecff",
+                        "secondary-fixed": "#dfe2eb",
+                        "surface-tint": "#a2c9ff",
+                        "inverse-surface": "#e2e2e5",
+                        "tertiary-fixed-dim": "#65de85",
+                        "primary": "#a2c9ff",
+                        "tertiary-container": "#007b39",
+                        "on-primary-fixed-variant": "#004881",
+                        "on-tertiary-fixed": "#00210a",
+                        "on-secondary-fixed": "#181c22",
+                        "outline-variant": "#414751",
+                        "secondary": "#c3c6cf",
+                        "primary-container": "#246cb3",
+                        "inverse-primary": "#0d60a6",
+                        "on-secondary": "#2d3137",
+                        "primary-fixed-dim": "#a2c9ff",
+                        "on-tertiary-fixed-variant": "#005224",
+                        "secondary-fixed-dim": "#c3c6cf",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e2e2e5",
+                        "on-tertiary-container": "#aaffb7",
+                        "on-primary-fixed": "#001c38",
+                        "tertiary-fixed": "#82fb9e",
+                        "surface-variant": "#333537",
+                        "outline": "#8b919c",
+                        "on-surface-variant": "#c1c7d2",
+                        "on-secondary-fixed-variant": "#43474e",
+                        "surface-container-highest": "#333537",
+                        "on-primary": "#00315b",
+                        "warning-accent": "#F9B21D"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(51, 53, 55, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121416;
+            color: #e2e2e5;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-20 flex flex-col sticky left-0 bg-[#121416] bg-[#1a1c1e] tonal-separation flex flex-col items-center py-4 space-y-4">
+<div class="mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">radar</span>
+</div>
+<nav class="flex flex-col items-center space-y-6 w-full">
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">business_center</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">psychology</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">fact_check</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">auto_awesome</span>
+</button>
+</div>
+<!-- Active Tab: Review Queue -->
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#a2c9ff] bg-[#246cb3]/20 border-r-2 border-[#a2c9ff] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">playlist_add_check</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">menu_book</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">gavel</span>
+</button>
+</div>
+<div class="group relative flex flex-col items-center">
+<button class="p-3 rounded-lg text-[#c1c7d2] hover:bg-[#333537] text-[#e2e2e5] transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+</button>
+</div>
+</nav>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="w-full top-0 sticky bg-[#121416] bg-[#1a1c1e] no-border tonal-shift flex justify-between items-center px-6 h-16 w-full z-10">
+<div class="flex items-center space-x-4">
+<h1 class="text-xl font-bold tracking-tight text-[#e2e2e5] font-['Space_Grotesk']">Intelligence Observer</h1>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<span class="text-xs font-medium text-on-surface-variant tracking-widest uppercase">Review Queue</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="flex space-x-2">
+<button class="px-4 py-1.5 rounded-md text-sm font-medium bg-primary-container text-on-primary-container hover:opacity-90 transition-all scale-95 active:opacity-80">Analyze Account</button>
+<button class="px-4 py-1.5 rounded-md text-sm font-medium border border-outline-variant text-on-surface hover:bg-surface-container-highest transition-all scale-95 active:opacity-80">Sync Status</button>
+</div>
+<div class="flex items-center space-x-4 text-[#c1c7d2]">
+<span class="material-symbols-outlined cursor-pointer hover:bg-[#333537] p-1.5 rounded-full transition-colors duration-200">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-[#333537] p-1.5 rounded-full transition-colors duration-200">settings</span>
+<img class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Analyst profile photo in circular frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKUVD8YynbkHj7pC3RDRfEXg7ZqN1rx-2lvNsSDfTBHAw9-kgv6Q2nPHD3vihgcj-wJlVU2W2_JpwOKymmQEMb-XuhZGsmyTpxWTrldnaVDlhyYjLz4iKfjZmuvz60Sxm-Sfct3mNAGUnqxfl-v3u9wZJRLJiCaid9nuCZSM_T5wan_hmBfwYAzUSmTpHpdooSFtpDySOl6LRSveO12E4kY_BKkwZhxnMBcGqaTU0iMkGjsFT2FogGBzeS_EQmcjw1miRrtzRp7fM"/>
+</div>
+</div>
+</header>
+<!-- Main Workspace Content -->
+<section class="flex-1 p-6 overflow-y-auto bg-surface space-y-6">
+<!-- Summary Stats Header -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-xs text-on-surface-variant font-medium">PENDING TASKS</p>
+<h3 class="text-3xl font-bold font-headline mt-1">42</h3>
+</div>
+<span class="material-symbols-outlined text-warning-accent text-3xl">pending_actions</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-xs text-on-surface-variant font-medium">CONFLICTS</p>
+<h3 class="text-3xl font-bold font-headline mt-1">08</h3>
+</div>
+<span class="material-symbols-outlined text-error text-3xl">warning</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-xs text-on-surface-variant font-medium">DUPLICATES</p>
+<h3 class="text-3xl font-bold font-headline mt-1">15</h3>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl">content_copy</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-xs text-on-surface-variant font-medium">AVG RESOLUTION</p>
+<h3 class="text-3xl font-bold font-headline mt-1">4.2m</h3>
+</div>
+<span class="material-symbols-outlined text-tertiary text-3xl">speed</span>
+</div>
+</div>
+<!-- Triage Workspace Bento Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Left Column: Active Queue List -->
+<div class="col-span-12 lg:col-span-4 space-y-4">
+<div class="flex items-center justify-between px-2">
+<h2 class="text-sm font-bold font-headline tracking-widest text-on-surface uppercase">Priority Queue</h2>
+<span class="text-xs text-primary font-medium cursor-pointer">Filter By Rank</span>
+</div>
+<!-- Queue Card 1: Conflict -->
+<div class="bg-surface-container-high p-4 rounded-xl border-l-4 border-error hover:bg-surface-bright transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-error-container text-on-error-container">CONFLICT</span>
+<span class="text-[10px] text-on-surface-variant">2m ago</span>
+</div>
+<h4 class="font-headline font-semibold text-on-surface">Data Point Mismatch: ACME Corp</h4>
+<p class="text-xs text-on-surface-variant mt-1">Firmographic conflict between CRM and LinkedIn Insights.</p>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary-container border border-surface-container-high flex items-center justify-center text-[8px]">AI</div>
+<div class="w-6 h-6 rounded-full bg-secondary-container border border-surface-container-high flex items-center justify-center text-[8px]">JD</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Queue Card 2: Recommendation -->
+<div class="bg-surface-container-high p-4 rounded-xl border-l-4 border-warning-accent hover:bg-surface-bright transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-warning-accent/20 text-warning-accent">REVIEW REQUIRED</span>
+<span class="text-[10px] text-on-surface-variant">15m ago</span>
+</div>
+<h4 class="font-headline font-semibold text-on-surface">Fit Recommendation: Globex</h4>
+<p class="text-xs text-on-surface-variant mt-1">Medium confidence signals detected for 'Enterprise Enabler' tier.</p>
+<div class="mt-4 flex items-center justify-between">
+<span class="text-[10px] font-medium text-on-surface-variant">Score: 68/100</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Queue Card 3: Duplicate -->
+<div class="bg-surface-container-high p-4 rounded-xl border-l-4 border-primary hover:bg-surface-bright transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-primary-container/20 text-primary">POTENTIAL DUPLICATE</span>
+<span class="text-[10px] text-on-surface-variant">1h ago</span>
+</div>
+<h4 class="font-headline font-semibold text-on-surface">Stark Industries / Stark Ltd</h4>
+<p class="text-xs text-on-surface-variant mt-1">Matched on domain stark.io with 94% similarity score.</p>
+<div class="mt-4 flex items-center justify-between">
+<span class="text-[10px] font-medium text-on-surface-variant">Merge suggested</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Detail Workpane -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-low rounded-xl overflow-hidden flex flex-col h-full">
+<!-- Workpane Header -->
+<div class="bg-surface-container p-6 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-warning-accent text-2xl">psychology</span>
+</div>
+<div>
+<h2 class="text-xl font-bold font-headline">Reviewing: Globex Recommendation</h2>
+<p class="text-sm text-on-surface-variant">Triggered by: Signal Cluster "Cloud Migration"</p>
+</div>
+</div>
+<div class="flex space-x-3">
+<button class="px-4 py-2 rounded-md text-xs font-bold border border-outline-variant text-on-surface hover:bg-surface-container-highest transition-all">Dismiss</button>
+<button class="px-4 py-2 rounded-md text-xs font-bold bg-primary text-on-primary hover:opacity-90 transition-all">Approve Recommendation</button>
+</div>
+</div>
+<!-- Analysis Comparison -->
+<div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Conflict/Review Source 1 -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h5 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Internal Logic</h5>
+<span class="text-[10px] text-tertiary">Verified</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 border border-outline-variant/5">
+<div class="space-y-1">
+<p class="text-[10px] text-on-surface-variant uppercase">Current Status</p>
+<p class="text-sm font-medium">Tier 3: Emerging Enterprise</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] text-on-surface-variant uppercase">Reported Revenue</p>
+<p class="text-sm font-medium">$450M - $500M ARR</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] text-on-surface-variant uppercase">Confidence Gap</p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-1 overflow-hidden">
+<div class="bg-warning-accent h-full w-[65%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Conflict/Review Source 2 -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h5 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Observer AI Proposal</h5>
+<span class="text-[10px] text-warning-accent">Manual Check</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 border border-warning-accent/20 ring-1 ring-warning-accent/10">
+<div class="space-y-1">
+<p class="text-[10px] text-on-surface-variant uppercase">Proposed Status</p>
+<p class="text-sm font-medium text-primary">Tier 1: Strategic Anchor</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] text-on-surface-variant uppercase">Detection Reason</p>
+<p class="text-sm font-medium italic">"Detected 14 job postings for GCP Architects in last 30 days, suggesting major infrastructure shift."</p>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] text-on-surface-variant uppercase">Resolution Action</p>
+<div class="flex items-center space-x-2 text-warning-accent">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+<p class="text-[10px] font-bold">Requires Account Executive override</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Conflict Resolution Workspace -->
+<div class="col-span-full mt-4">
+<div class="bg-surface-container-high/50 p-6 rounded-xl border-dashed border-2 border-outline-variant/20">
+<h5 class="text-sm font-headline font-bold mb-4">Conflict Resolution Log</h5>
+<div class="space-y-3">
+<div class="flex space-x-3 items-start">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mt-0.5">history</span>
+<p class="text-xs text-on-surface-variant"><span class="text-on-surface font-medium">System</span> detected a revenue discrepancy between Crunchbase and Apollo on 2023-11-15.</p>
+</div>
+<div class="flex space-x-3 items-start">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mt-0.5">chat_bubble_outline</span>
+<p class="text-xs text-on-surface-variant"><span class="text-on-surface font-medium">Analyst Note:</span> Checking latest SEC filing for Globex subsidiary. Might be a consolidated revenue reporting error.</p>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full py-3 bg-surface-container-highest rounded-lg text-sm font-bold text-primary hover:bg-primary/10 transition-colors flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined text-sm">handshake</span>
+<span>Resolve Conflict &amp; Update Master Record</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Floating Controls (Task Success) -->
+<div class="absolute bottom-6 right-6 flex flex-col space-y-2 pointer-events-none">
+<div class="bg-tertiary-container text-on-tertiary-container px-4 py-3 rounded-lg shadow-xl flex items-center space-x-3 pointer-events-auto">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-sm font-medium">Previous task resolved: Stark Industries</span>
+</div>
+</div>
+</main>
+<!-- Side Intelligence Panel (Glassmorphism) -->
+<aside class="hidden xl:block w-80 h-screen glass-panel fixed right-0 border-l border-white/5 p-6 z-20">
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-6">Expert Context</h3>
+<div class="space-y-8">
+<div class="space-y-3">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase">Related Signals</p>
+<div class="space-y-2">
+<div class="p-3 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+<p class="text-xs font-medium">Expansion in APAC</p>
+<p class="text-[10px] text-on-surface-variant">Source: Reuters Intelligence</p>
+</div>
+<div class="p-3 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+<p class="text-xs font-medium">M&amp;A Activity: High</p>
+<p class="text-[10px] text-on-surface-variant">Source: Proprietary Crawler</p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<p class="text-[10px] text-on-surface-variant font-bold uppercase">Workspace Health</p>
+<div class="flex items-center space-x-4">
+<div class="relative w-16 h-16">
+<svg class="w-full h-full" viewbox="0 0 36 36">
+<path class="text-white/10" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="75, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-[10px] font-bold">75%</span>
+</div>
+</div>
+<div>
+<p class="text-sm font-bold">Queue Integrity</p>
+<p class="text-[10px] text-on-surface-variant">Above target baseline</p>
+</div>
+</div>
+</div>
+<div class="pt-10 border-t border-white/10">
+<p class="text-[10px] text-on-surface-variant mb-4 italic leading-relaxed">"The AI has flagged 4 similar patterns in the last 24 hours. Consider creating a new Rule to auto-resolve these revenue conflicts."</p>
+<button class="w-full py-2 bg-primary-container/20 text-primary border border-primary/30 rounded-md text-[10px] font-bold uppercase tracking-widest hover:bg-primary-container/40 transition-all">Create New Rule</button>
+</div>
+</div>
+</aside>
+</body></html>

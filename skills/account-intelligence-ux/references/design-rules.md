@@ -1,0 +1,5 @@
+- Desktop supports multi-panel analysis.
+- Tablet prioritizes recommendation plus summary.
+- Mobile prioritizes intake, summary, and review flows.
+- Use a dark-shell, layered analytic treatment for the revamp rather than a bright dashboard shell.
+- Avoid exposing uncontrolled raw-source dumps in phase 1.

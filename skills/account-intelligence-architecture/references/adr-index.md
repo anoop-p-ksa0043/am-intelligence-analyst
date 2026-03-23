@@ -1,0 +1,7 @@
+- `docs/architecture/adr/0001-stack-and-runtime.md`
+- `docs/architecture/adr/0002-canonical-account-model.md`
+- `docs/architecture/adr/0003-ingestion-trust-boundaries.md`
+- `docs/architecture/adr/0004-scoring-and-confidence-separation.md`
+- `docs/architecture/adr/0005-queue-and-worker-model.md`
+- `docs/architecture/adr/0006-auth-role-model.md`
+- `docs/architecture/adr/0007-module-onboarding-gates.md`
