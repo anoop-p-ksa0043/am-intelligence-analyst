@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { LegacyWorkbenchPage } from "@/components/legacy-workbench-page";
 import { resolveUiMode } from "@/lib/feature-flags";
+import { auth } from "@/auth";
 
 export default async function HomePage({
   searchParams
@@ -11,7 +12,12 @@ export default async function HomePage({
   const mode = resolveUiMode(ui);
 
   if (mode === "revamp") {
-    redirect("/accounts");
+    const session = await auth();
+    if (!session) {
+      redirect("/login");
+    } else {
+      redirect("/accounts");
+    }
   }
 
   return <LegacyWorkbenchPage />;
