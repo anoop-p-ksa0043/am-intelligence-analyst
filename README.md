@@ -1,37 +1,41 @@
-# Project Name: AM Intelligence Analyst
+# Project Documentation
 
-## Project Basics
-AM Intelligence Analyst is a platform designed to analyze and present data insights effectively, aiming to empower users with powerful analytical tools.
+## Basics
+This project is aimed at providing an intelligence analyst tool that leverages advanced analytics and machine learning techniques to assist analysts in making informed decisions.
 
 ## Features
-- **Data Analysis**: Perform various analyses on datasets to extract meaningful insights.
-- **Visualization**: Generate visual representations of data for better understanding.
-- **User Management**: Manage user profiles and permissions.
-- **Reporting**: Create and download reports based on analyses.
+- Data analysis and visualization tools
+- Machine learning model integration for predictive analytics
+- User-friendly interface for enhanced usability
+- Real-time data processing capabilities
+- Comprehensive reporting tools
 
 ## Tech Stack
-- **Frontend**: React.js
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Deployment**: Docker, AWS
+- **Frontend:** React.js
+- **Backend:** Node.js, Express
+- **Database:** MongoDB
+- **Data Visualization:** D3.js, Chart.js
+- **Machine Learning:** Python (Scikit-learn, TensorFlow)
+- **Deployment:** Docker, Kubernetes
 
-## Getting Started
-1. **Clone the Repository**:  
+## Setup Instructions
+1. Clone the repository:
    ```bash
    git clone https://github.com/anoop-p-ksa0043/am-intelligence-analyst.git
-   ```  
-2. **Install Dependencies**:  
-   Navigate to the project directory and run:
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd am-intelligence-analyst
+   ```
+3. Install the required dependencies:
    ```bash
    npm install
-   ```  
-3. **Run the Application**:  
-   Start the application using:
+   ```
+4. Set up the database:
+   - Make sure MongoDB is installed and running.
+   - Create a new database as specified in the configuration file.
+5. Run the application:
    ```bash
    npm start
-   ```  
-4. **Access the Application**:  
-   Open your browser and go to `http://localhost:3000` to start using the application.
-
-## License
-This project is licensed under the MIT License.
+   ```
+6. Open your browser and go to `http://localhost:3000` to view the application.
